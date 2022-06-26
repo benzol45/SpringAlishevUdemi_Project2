@@ -60,8 +60,11 @@ public class BooksService {
 
     @Transactional
     public void update(int id, Book book) {
-        book.setId(id);
-        bookRepository.save(book);
+        Book currentBook = bookRepository.findById(id).get();
+        currentBook.setAuthor(book.getAuthor());
+        currentBook.setTitle(book.getTitle());
+        currentBook.setYear(book.getYear());
+        bookRepository.save(currentBook);
     }
 
     @Transactional(readOnly = true)
